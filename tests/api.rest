@@ -1,0 +1,78 @@
+### Variables
+@baseUrl = http://localhost:3000/api
+@adminToken = your_admin_token_here
+@agentToken = your_agent_token_here
+@agentId = your_agent_id_here
+
+### Health Check
+GET {{baseUrl}}/health
+
+### Auth Routes
+# Login
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "admin@example.com",
+    "password": "your_password"
+}
+
+### Admin Routes
+# Get All Agents
+GET {{baseUrl}}/admin/agents
+Authorization: Bearer {{adminToken}}
+
+# Get Agent Details
+GET {{baseUrl}}/admin/agents/{{agentId}}
+Authorization: Bearer {{adminToken}}
+
+# Update Agent Status
+PUT {{baseUrl}}/admin/agents/{{agentId}}/status
+Authorization: Bearer {{adminToken}}
+Content-Type: application/json
+
+{
+    "status": "active"
+}
+
+# Get Region Performance Stats
+GET {{baseUrl}}/admin/performance/regions/{{regionId}}
+Authorization: Bearer {{adminToken}}
+
+### Transaction Routes
+# Create Transaction
+POST {{baseUrl}}/transactions
+Authorization: Bearer {{agentToken}}
+Content-Type: application/json
+
+{
+    "agent_id": "{{agentId}}",
+    "amount": 1000,
+    "transaction_type": "deposit",
+    "agent_markup": 50,
+    "customer_phone": "+2341234567890",
+    "notes": "Test transaction"
+}
+
+# Get Agent's Transactions
+GET {{baseUrl}}/transactions/agent/{{agentId}}
+Authorization: Bearer {{agentToken}}
+
+# Get Agent's Performance Metrics
+GET {{baseUrl}}/transactions/agent/{{agentId}}/performance
+Authorization: Bearer {{agentToken}}
+
+### Webhook Routes
+# Subscribe to Webhooks
+POST {{baseUrl}}/webhooks/subscribe
+Authorization: Bearer {{agentToken}}
+Content-Type: application/json
+
+{
+    "agent_id": "{{agentId}}",
+    "url": "https://your-webhook-endpoint.com/notifications"
+}
+
+# Get Agent's Webhook Subscriptions
+GET {{baseUrl}}/webhooks/agent/{{agentId}}
+Authorization: Bearer {{agentToken}} 

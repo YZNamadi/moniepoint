@@ -1,0 +1,151 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# Build output
+dist/
+build/
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.development
+.env.test
+.env.production
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+.nyc_output/
+junit.xml
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# Runtime data
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# Docker
+docker-compose.override.yml
+
+# TypeScript cache
+*.tsbuildinfo
+
+# Optional npm cache directory
+.npm
+
+# Optional eslint cache
+.eslintcache
+
+# Optional REPL history
+.node_repl_history
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# Test files
+src/__tests__/
+*.test.ts
+*.spec.ts
+jest.config.js
+
+# Local development files
+*.local
+local.*
+
+# Database files
+*.sqlite
+*.sqlite3
+*.db
+
+# Redis dump file
+dump.rdb
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# SSL/TLS Certificates (if any)
+*.pem
+*.key
+*.crt
+*.cer
+
+# Backup files
+*.bak
+*.backup
+*~
+
+# Cache directories
+.cache/
+.parcel-cache/
+
+# Production configuration
+config.production.json
+
+# Server Configuration
+PORT=3000
+NODE_ENV=development
+
+# Database Configuration
+MYSQL_HOST=localhost
+MYSQL_PORT=3306
+MYSQL_USER=root
+MYSQL_PASSWORD=your_password_here
+MYSQL_DATABASE=moniepoint_agents
+
+# Redis Configuration
+REDIS_HOST=localhost
+REDIS_PORT=6379
+
+# JWT Configuration
+JWT_SECRET=your_jwt_secret_here
+JWT_EXPIRES_IN=24h
+
+# Rate Limiting
+RATE_LIMIT_WINDOW=15m
+RATE_LIMIT_MAX_REQUESTS=100
+
+# Logging
+LOG_LEVEL=debug
+
+# Webhook Configuration
+WEBHOOK_SECRET=your_webhook_secret_here
+WEBHOOK_RETRY_ATTEMPTS=3
+WEBHOOK_RETRY_DELAY=5000
+
+# Admin Configuration
+ADMIN_EMAIL=admin@moniepoint.com
+ADMIN_PASSWORD=your_admin_password_here
+
+# Performance Thresholds
+MAX_MARKUP_PERCENTAGE=5
+SUSPICIOUS_ACTIVITY_THRESHOLD=2.5 
+
+api.test.ts
+transaction.test.ts
