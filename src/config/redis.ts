@@ -1,5 +1,12 @@
 import Redis from 'ioredis';
 
+// Debug logging
+console.log('Redis Configuration:', {
+  NODE_ENV: process.env.NODE_ENV,
+  REDIS_URL: process.env.REDIS_URL ? 'Set' : 'Not Set',
+  REDIS_HOST: process.env.REDIS_HOST,
+});
+
 const redis = process.env.NODE_ENV === 'test'
   ? new Redis({
       lazyConnect: true,
@@ -12,13 +19,18 @@ const redis = process.env.NODE_ENV === 'test'
     : new Redis({
         host: process.env.REDIS_HOST || 'localhost',
         port: parseInt(process.env.REDIS_PORT || '6379'),
-        password: process.env.REDIS_PASSWORD,
+        password: process.env.REDIS_PASSWORD || undefined,
         showFriendlyErrorStack: true
     });
 
 redis.on('error', (err) => {
   if (process.env.NODE_ENV !== 'test') {
     console.error('Redis Client Error:', err);
+    console.error('Current Config:', {
+      NODE_ENV: process.env.NODE_ENV,
+      REDIS_URL: process.env.REDIS_URL ? 'Set' : 'Not Set',
+      REDIS_HOST: process.env.REDIS_HOST,
+    });
   }
 });
 
