@@ -17,7 +17,7 @@ const redis = process.env.NODE_ENV === 'test'
     })
   : new Redis({
       host: process.env.REDIS_HOST || 'redis', // Docker service name
-      port: parseInt(process.env.REDIS_PORT || '6379'),
+      port: parseInt(process.env.REDIS_PORT || '6380'), // Match docker-compose port
       retryStrategy(times) {
         const delay = Math.min(times * 50, 2000);
         console.log(`Retrying Redis connection in ${delay}ms...`);
@@ -30,7 +30,7 @@ redis.on('error', (err) => {
     console.error('Redis Client Error:', err);
     console.error('Current Config:', {
       REDIS_HOST: process.env.REDIS_HOST || 'redis',
-      REDIS_PORT: process.env.REDIS_PORT || '6379'
+      REDIS_PORT: process.env.REDIS_PORT || '6380'
     });
   }
 });
