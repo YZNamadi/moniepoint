@@ -1,7 +1,11 @@
+import dotenv from 'dotenv';
+
+// Load environment variables before other imports
+dotenv.config();
+
 import express, { Express, Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import dotenv from 'dotenv';
 import swaggerUi from 'swagger-ui-express';
 import { swaggerSpec } from './config/swagger';
 import transactionRoutes from './routes/transaction.routes';
@@ -11,9 +15,6 @@ import authRoutes from './routes/auth.routes';
 import metricsRoutes from './routes/metrics.routes';
 import auditRoutes from './routes/audit.routes';
 //import morgan from 'morgan';
-
-// Load environment variables
-dotenv.config();
 
 // Import routes (to be created)
 // import agentRoutes from './routes/agent.routes';
