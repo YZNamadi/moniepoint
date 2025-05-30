@@ -7,11 +7,13 @@ const redis = process.env.NODE_ENV === 'test'
       enableOfflineQueue: false,
       maxRetriesPerRequest: 0
     })
-  : new Redis({
-      host: process.env.REDIS_HOST || 'localhost',
-      port: parseInt(process.env.REDIS_PORT || '6379'),
-      password: process.env.REDIS_PASSWORD,
-      showFriendlyErrorStack: true
+  : process.env.REDIS_URL
+    ? new Redis(process.env.REDIS_URL)
+    : new Redis({
+        host: process.env.REDIS_HOST || 'localhost',
+        port: parseInt(process.env.REDIS_PORT || '6379'),
+        password: process.env.REDIS_PASSWORD,
+        showFriendlyErrorStack: true
     });
 
 redis.on('error', (err) => {

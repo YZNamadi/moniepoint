@@ -10,6 +10,10 @@ const options: swaggerJsdoc.Options = {
     },
     servers: [
       {
+        url: 'https://moniepoint-5vj5.onrender.com',
+        description: 'Production server',
+      },
+      {
         url: 'http://localhost:3000',
         description: 'Development server',
       },
