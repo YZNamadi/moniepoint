@@ -1,10 +1,11 @@
 import Redis from 'ioredis';
 
 // Debug logging
-console.log('Redis Configuration:', {
+console.log('Redis Environment Variables:', {
   NODE_ENV: process.env.NODE_ENV,
   REDIS_URL: process.env.REDIS_URL ? 'Set' : 'Not Set',
-  REDIS_HOST: process.env.REDIS_HOST,
+  REDIS_HOST: process.env.REDIS_HOST || 'Not Set',
+  REDIS_PORT: process.env.REDIS_PORT || 'Not Set'
 });
 
 const redis = process.env.NODE_ENV === 'test'
@@ -14,22 +15,22 @@ const redis = process.env.NODE_ENV === 'test'
       enableOfflineQueue: false,
       maxRetriesPerRequest: 0
     })
-  : process.env.REDIS_URL
-    ? new Redis(process.env.REDIS_URL)
-    : new Redis({
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT || '6379'),
-        password: process.env.REDIS_PASSWORD || undefined,
-        showFriendlyErrorStack: true
+  : new Redis({
+      host: process.env.REDIS_HOST || 'redis', // Docker service name
+      port: parseInt(process.env.REDIS_PORT || '6379'),
+      retryStrategy(times) {
+        const delay = Math.min(times * 50, 2000);
+        console.log(`Retrying Redis connection in ${delay}ms...`);
+        return delay;
+      }
     });
 
 redis.on('error', (err) => {
   if (process.env.NODE_ENV !== 'test') {
     console.error('Redis Client Error:', err);
     console.error('Current Config:', {
-      NODE_ENV: process.env.NODE_ENV,
-      REDIS_URL: process.env.REDIS_URL ? 'Set' : 'Not Set',
-      REDIS_HOST: process.env.REDIS_HOST,
+      REDIS_HOST: process.env.REDIS_HOST || 'redis',
+      REDIS_PORT: process.env.REDIS_PORT || '6379'
     });
   }
 });
